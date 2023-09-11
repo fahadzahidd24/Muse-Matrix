@@ -4,9 +4,8 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { MessageSquare, Music, ImageIcon, VideoIcon, Code, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation"
-import { useEffect } from "react";
 
-export const tools = [
+const tools = [
   {
     label: 'Conversation',
     icon: MessageSquare,
@@ -75,5 +74,7 @@ const DashboardPage = () => {
     </div>
   )
 }
-
+export {
+  tools
+};
 export default DashboardPage;
