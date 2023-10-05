@@ -8,7 +8,7 @@ import { Heading } from "@/components/Heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Code, MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "./constants";
@@ -18,8 +18,11 @@ import { cn } from "@/lib/utils";
 import axios from 'axios';
 import * as z from "zod";
 import ReactMarkdown from 'react-markdown';
+import { useProModal } from "@/hooks/use-pro-modal";
+import { NextResponse } from "next/server";
 
 const CodePage = () => {
+    const proModal = useProModal();
     const router = useRouter();
     const [messages, setMessages] = useState<any[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
@@ -47,8 +50,10 @@ const CodePage = () => {
 
             form.reset();
 
-        } catch (error) {
-            console.log(error);
+        } catch (error:any) {
+            if(error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }

@@ -17,8 +17,10 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import axios from 'axios';
 import * as z from "zod";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const ConversationPage = () => {
+    const proModal = useProModal();
     const router = useRouter();
     const [messages, setMessages] = useState<any[]>([])
     const form = useForm<z.infer<typeof formSchema>>({
@@ -46,8 +48,10 @@ const ConversationPage = () => {
 
             form.reset();
 
-        } catch (error) {
-            console.log(error);
+        } catch (error:any) {
+            if(error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }

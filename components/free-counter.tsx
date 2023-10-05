@@ -6,9 +6,11 @@ import { MAX_FREE_COUNTS } from "@/constants";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
 import { CircleDollarSign } from "lucide-react";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const FreeCounter = ({ apiLimitCount }: { apiLimitCount: number }) => {
     const [mounted, setmounted] = useState(false);
+    const proModal = useProModal();
 
     useEffect(() => {
         setmounted(true);
@@ -22,10 +24,10 @@ const FreeCounter = ({ apiLimitCount }: { apiLimitCount: number }) => {
                 <CardContent className="py-6">
                     <div className="text-center text-sm text-white mb-4 space-y-4">
                         <p>{apiLimitCount}/{MAX_FREE_COUNTS} Free Generations</p>
-                        <Progress className="h-3" value={(apiLimitCount/MAX_FREE_COUNTS) * 100}/>
+                        <Progress className="h-3" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
                     </div>
-                    <Button className="w-full hover:opacity-90" variant='premium'>Upgrade 
-                    <CircleDollarSign className="w-5 h-5 ml-2" />
+                    <Button onClick={proModal.onOpen} className="w-full hover:opacity-90" variant='premium'>Upgrade
+                        <CircleDollarSign className="w-5 h-5 ml-2" />
                     </Button>
                 </CardContent>
             </Card>

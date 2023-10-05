@@ -6,7 +6,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     const apiLimitCount = await getApiLimitCount();
     return (
         <div className="h-full relative">
-            <div className="hidden md:h-full md:w-72 md:flex md:flex-col md:inset-y-0 bg-gray-900 fixed z-[80]">
+            <div className="hidden md:h-full md:w-72 md:flex md:flex-col md:inset-y-0 bg-gray-900 fixed">
                 <Sidebar apiLimitCount={apiLimitCount || 0}/>
             </div>
             <main className="md:pl-72">
